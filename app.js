@@ -96,12 +96,19 @@ var zigZagConversion = function(s, numRows) {
 var maxArea = function(height) {
   if (height.length < 2) return 0
 
-  let maxArea = 0
-  for (let x = 0; x < height.length-1; x++) {
-    for (let j = x+1; j < height.length; j++) {
-      let area = Math.min(height[x], height[j]) * (j - x)
-      maxArea = (area > maxArea) ? area : maxArea
-    }
+  var left = 0
+  var right = height.length-1
+  
+  var maxArea = 0;
+  while (left < right) {
+    let area = Math.min(height[left], height[right]) * (right - left)
+    if (area > maxArea)
+      maxArea = area
+
+    if (height[left] < height[right])
+      left++
+    else 
+      right--
   }
 
   return maxArea
