@@ -93,6 +93,25 @@ var zigZagConversion = function(s, numRows) {
   return result
 };
 
-var testString = 'PAYP'
-console.log(zigZagConversion(testString, 1))
-console.log(zigZagConversion(testString, 4))
+var maxArea = function(height) {
+  if (height.length < 2) return 0
+
+  let maxArea = 0
+  for (let x = 0; x < height.length-1; x++) {
+    for (let j = x+1; j < height.length; j++) {
+      let area = Math.min(height[x], height[j]) * (j - x)
+      maxArea = (area > maxArea) ? area : maxArea
+    }
+  }
+
+  return maxArea
+}
+
+var height = [1,8,6,2,5,4,8,3,7]
+console.log(maxArea(height))
+var height = [1]
+console.log(maxArea(height))
+var height = [1,8]
+console.log(maxArea(height))
+var height = []
+console.log(maxArea(height))
