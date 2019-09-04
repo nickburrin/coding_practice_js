@@ -58,15 +58,41 @@ var myAtoi = function(str) {
   return result
 };
 
-var testString = '42'
-console.log(myAtoi(testString))
-testString = '-42'
-console.log(myAtoi(testString))
-testString = '    -42'
-console.log(myAtoi(testString))
-testString = '4193 with words'
-console.log(myAtoi(testString))
-testString = 'words and 987'
-console.log(myAtoi(testString))
-testString = '-91283472332'
-console.log(myAtoi(testString))
+var lengthOfLastWord = function(s) {
+    s = s.trim()
+    if (!s) return 0;
+
+    strings = s.split(' ')
+    return strings[strings.length-1].length
+};
+
+var zigZagConversion = function(s, numRows) {
+  if (!s || s.length == numRows || numRows <= 1) return s
+
+  let down = true
+  let row = 0
+  let rows = []
+  for (let i = 0; i < s.length; i++) {
+    if (i < numRows)
+      rows[row] = s[i]
+    else
+      rows[row] += s[i]
+
+    if (row == numRows-1 && down)
+      down = false
+    else if (row == 0 && !down)
+      down = true
+
+    row = down ? row+1 : row-1
+  }
+
+  let result = ''
+  for (s of rows)
+    result += s
+    
+  return result
+};
+
+var testString = 'PAYP'
+console.log(zigZagConversion(testString, 1))
+console.log(zigZagConversion(testString, 4))
