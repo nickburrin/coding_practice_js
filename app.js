@@ -159,8 +159,30 @@ var memoize = (prices) => {
   return memo
 }
 
-let prices = [7,1,5,3,6,4]
-console.log(maxProfit(prices))
-prices = [7,6,4,3,1]
-console.log(maxProfit(prices))
+var maxProfit_multipleBuys = function(prices) {
+  if (prices.length <= 1) return 0
 
+  let buyPrice = prices[0]
+  let sellPrice = prices[0]
+  let climbing = prices[1] > prices[0]
+  let profit = 0
+
+  for (let i = 1; i < prices.length; i++) {
+    if (prices[i] > prices[i-1]) {
+      sellPrice = prices[i]
+      profit += sellPrice - buyPrice
+      buyPrice = prices[i]
+    } else {
+      buyPrice = prices[i]
+    }
+  }
+
+  return profit
+}
+
+let prices = [7,1,5,3,6,4]
+console.log(maxProfit_multipleBuys(prices))
+prices = [1,2,3,4,5]
+console.log(maxProfit_multipleBuys(prices))
+prices = [7,6,4,3,1]
+console.log(maxProfit_multipleBuys(prices))
