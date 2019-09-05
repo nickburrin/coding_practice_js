@@ -135,13 +135,32 @@ var removeNthFromEnd = function(head, n) {
   return dummy.next
 };
 
-let head = new ListNode(0)
-let node = head;
-for (let i = 1; i < 5; i++){
-  node.next = new ListNode(i)
-  node = node.next
+var maxProfit = function(prices) {
+  if (prices.length <= 1) return 0
+  
+  let futureMaxPrices = memoize(prices)
+
+  let result = 0
+  for (let i = 0; i < prices.length; i++) {
+    let profit = futureMaxPrices[i] - prices[i]
+    result = profit > result ? profit : result
+  }
+
+  return result
+};
+
+var memoize = (prices) => {
+  let memo = []
+  memo[prices.length-1] = prices[prices.length-1]
+  for (let i = prices.length-2; i >= 0; i--) {
+    memo[i] = Math.max(prices[i], memo[i+1])
+  }
+
+  return memo
 }
-head.printList()
-head = removeNthFromEnd(head, 2)
-head.printList()
+
+let prices = [7,1,5,3,6,4]
+console.log(maxProfit(prices))
+prices = [7,6,4,3,1]
+console.log(maxProfit(prices))
 
