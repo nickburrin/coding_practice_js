@@ -164,7 +164,6 @@ var maxProfit_multipleBuys = function(prices) {
 
   let buyPrice = prices[0]
   let sellPrice = prices[0]
-  let climbing = prices[1] > prices[0]
   let profit = 0
 
   for (let i = 1; i < prices.length; i++) {
@@ -180,9 +179,22 @@ var maxProfit_multipleBuys = function(prices) {
   return profit
 }
 
-let prices = [7,1,5,3,6,4]
-console.log(maxProfit_multipleBuys(prices))
-prices = [1,2,3,4,5]
-console.log(maxProfit_multipleBuys(prices))
-prices = [7,6,4,3,1]
-console.log(maxProfit_multipleBuys(prices))
+var findSingleNumber = function(nums) {
+  if (nums.length == 0 || nums.length % 2 == 0) return null
+  if (nums.length == 1) return nums[0]
+
+  let set = []
+  for(let n of nums) {
+    if (set.includes(n))
+      set.splice(set.indexOf(n), 1)
+    else
+      set.push(n)
+  }
+
+  return set[0]
+};
+
+let nums = [2, 2, 1]
+console.log(findSingleNumber(nums))
+nums = [4, 2, 1, 1, 2]
+console.log(findSingleNumber(nums))
