@@ -1,5 +1,5 @@
 
-export class Queue {
+class Queue {
     constructor() {
         this.q = new Array();
         this.dequeue = function () {
@@ -11,7 +11,7 @@ export class Queue {
     }
 }
 
-export class Stack {
+class Stack {
     constructor() {
         this.q = new Array();
         this.pop = function () {
@@ -23,4 +23,18 @@ export class Stack {
     }
 }
 
-export { Queue, Stack }; 
+export class ListNode {
+    constructor(v) {
+        this.val = v;
+        this.next = null;
+    }
+
+    printList() {
+        let node = this
+        console.log(this.val + " ")
+        while(node.next) {
+            node = node.next
+            console.log(node.val + " ")
+        }
+    }
+}

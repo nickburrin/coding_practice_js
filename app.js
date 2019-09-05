@@ -1,3 +1,5 @@
+import { ListNode } from './data_structures.js'
+
 var lengthOfLongestSubstring = function(s) {
   let curr = ''
   let length = 0
@@ -114,11 +116,32 @@ var maxArea = function(height) {
   return maxArea
 }
 
-var height = [1,8,6,2,5,4,8,3,7]
-console.log(maxArea(height))
-var height = [1]
-console.log(maxArea(height))
-var height = [1,8]
-console.log(maxArea(height))
-var height = []
-console.log(maxArea(height))
+var removeNthFromEnd = function(head, n) {
+  if (!head) return head
+
+  let dummy = new ListNode(-1)
+  dummy.next = head
+
+  let nodes = []
+  while(head) {
+    nodes.push(head)
+    head = head.next
+  }
+
+  let removeIdx = nodes.length - n
+  nodes[removeIdx-1].next = nodes[removeIdx].next
+  nodes[removeIdx] = null
+
+  return dummy.next
+};
+
+let head = new ListNode(0)
+let node = head;
+for (let i = 1; i < 5; i++){
+  node.next = new ListNode(i)
+  node = node.next
+}
+head.printList()
+head = removeNthFromEnd(head, 2)
+head.printList()
+
