@@ -194,7 +194,36 @@ var findSingleNumber = function(nums) {
   return set[0]
 };
 
-let nums = [2, 2, 1]
-console.log(findSingleNumber(nums))
-nums = [4, 2, 1, 1, 2]
-console.log(findSingleNumber(nums))
+var deleteDuplicates = function(head) {
+  if (head.next == null) return head
+
+  var set = new Set()
+  set.add(head.val)
+
+  var curr = head.next
+  var last = head
+
+  while (curr != null) {
+    if (set.has(curr.val)) {
+      last.next = curr.next
+    } else {
+      set.add(curr.val)
+      last = curr
+    }
+
+    curr = curr.next
+  }
+
+  return head
+};
+
+let head = new ListNode(1)
+let one = new ListNode(1)
+let two = new ListNode(2)
+let three = new ListNode(3)
+let four = new ListNode(3)
+head.next = one
+one.next = two
+two.next = three
+three.next = four
+console.log(deleteDuplicates(head).printList())

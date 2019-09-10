@@ -31,10 +31,12 @@ export class ListNode {
 
     printList() {
         let node = this
-        console.log(this.val + " ")
-        while(node.next) {
+        var result = this.val
+        while(node.next != null) {
             node = node.next
-            console.log(node.val + " ")
+            result += " " + node.val
         }
+
+        return result
     }
 }
