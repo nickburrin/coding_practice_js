@@ -249,11 +249,27 @@ var threeSum = function(nums) {
   return result
 };
 
-// let arr = [-1, 0, 1, 2, -1, -4]
-let arr = [-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6]
-// let arr = []
-// let arr = [1, 2]
-// let arr = [1, 2, 0]
-// let arr = [1, 2, -3]
-let result = threeSum(arr)
-result ? result.forEach(x => console.log(x)) : ""
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+  if (n == 0) return []
+  if (n == 1) return ["()"]
+
+  let combos = new Set()
+  generateParenthesis(n-1).map(x => {
+    combos.add(`(${x})`)
+    combos.add(`()${x}`)
+    combos.add(`${x}()`)
+  })
+  
+  return Array.from(combos)
+};
+
+const n3 = new Set(["((()))","(()())","(())()","()(())","()()()"])
+const n4 = new Set(["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"])
+let result = generateParenthesis(4)
+let difference = new Set(
+  [...result].filter(x => !n4.has(x)));
+console.log(difference)
