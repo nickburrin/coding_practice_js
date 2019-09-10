@@ -217,13 +217,43 @@ var deleteDuplicates = function(head) {
   return head
 };
 
-let head = new ListNode(1)
-let one = new ListNode(1)
-let two = new ListNode(2)
-let three = new ListNode(3)
-let four = new ListNode(3)
-head.next = one
-one.next = two
-two.next = three
-three.next = four
-console.log(deleteDuplicates(head).printList())
+var threeSum = function(nums) {
+  if (nums.length < 3) return []
+
+  let n = nums.length
+  let result = []
+  nums.sort((a,b) => a-b)
+  for (let i = 0; i < n-2; i++) {
+    if (i == 0 || (i > 0 && nums[i] != nums[i-1])) {
+      let sum = 0 - nums[i]
+      let begin = i+1
+      let end = n-1
+
+      while (begin < end) {
+        if (nums[begin] + nums[end] == sum) {
+          result.push([nums[i], nums[begin], nums[end]])
+          
+          while (begin < end && nums[begin] == nums[begin+1]) begin++
+          while (begin < end && nums[end] == nums[end-1]) end--
+          begin++
+          end--
+        } else if (nums[begin] + nums[end] < sum) {
+          begin++
+        } else {
+          end--
+        }
+      }
+    } else if (nums[i] > 0) break
+  }
+
+  return result
+};
+
+// let arr = [-1, 0, 1, 2, -1, -4]
+let arr = [-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6]
+// let arr = []
+// let arr = [1, 2]
+// let arr = [1, 2, 0]
+// let arr = [1, 2, -3]
+let result = threeSum(arr)
+result ? result.forEach(x => console.log(x)) : ""
