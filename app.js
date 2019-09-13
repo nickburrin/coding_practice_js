@@ -1,4 +1,5 @@
 import { ListNode } from './data_structures.js'
+import _ from 'lodash'
 
 var lengthOfLongestSubstring = function(s) {
   let curr = ''
@@ -273,8 +274,72 @@ function eqSet(a, b) {
   return true;
 };
 
-const n2 = new Set(["(())", "()()"])
-const n3 = new Set(["((()))","(()())","(())()","()(())","()()()"])
-const n4 = new Set(["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"])
-let result = generateParenthesis(2)
-console.log(eqSet(result, n2))
+function sumSwap(list1, list2) {
+  let set1 = new Set()
+  let sum1 = 0
+  for (let num of list1) {
+    sum1 += num
+    set1.add(num)
+  }
+
+  let set2 = new Set()
+  let sum2 = 0
+  for (let num of list2) {
+    sum2 += num
+    set2.add(num)
+  }
+
+  const diff = sum1 - sum2
+  for (let num of list1) {
+    if (set2.has(num-diff/2)) {
+      let num2 = num-diff/2
+      return { num, num2 }
+    }
+  }
+}
+
+var minSwapsCouples = function(row) {
+  let allVisitedIndexes = new Set()
+  let swaps = 0
+  while (allVisitedIndexes.size < row.length) {
+    let nodeIndex = getNextUnvisitedIndex(row, allVisitedIndexes)  
+    let visitedIndexes = traverse(nodeIndex, row, new Set())
+    swaps += visitedIndexes.size/2 - 1
+    allVisitedIndexes = new Set(_.union(Array.from(visitedIndexes), Array.from(allVisitedIndexes)))
+  }
+
+  return swaps
+};
+
+function getNextUnvisitedIndex(row, visitedIndexes) {
+  for (let i = 0; i < row.length; i++)
+    if (!visitedIndexes.has(i)) return i
+}
+
+function traverse(nodeIndex, row, visitedIndexes) {
+  if (visitedIndexes.has(nodeIndex)) return visitedIndexes
+  
+  let buddyIndex = getBuddyIndex(nodeIndex)
+  let buddyValue = row[buddyIndex]
+ 
+  visitedIndexes.add(nodeIndex)
+  visitedIndexes.add(buddyIndex)
+  
+  let buddysPartnerValue = getPartnerValue(buddyValue)
+  
+  let buddysPartnerIndex = row.indexOf(buddysPartnerValue)
+  if (buddysPartnerIndex == nodeIndex)
+    return visitedIndexes;
+  else
+    return traverse(buddysPartnerIndex, row, visitedIndexes)
+}
+
+function getBuddyIndex(index) {
+  return index % 2 == 0 ? index+1 : index-1
+}
+
+const getPartnerValue = getBuddyIndex
+
+let row = [0, 2, 1, 3, 4, 6, 5, 7]
+let result = minSwapsCouples(row)
+console.log(result)
