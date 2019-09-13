@@ -340,6 +340,48 @@ function getBuddyIndex(index) {
 
 const getPartnerValue = getBuddyIndex
 
-let row = [0, 2, 1, 3, 4, 6, 5, 7]
-let result = minSwapsCouples(row)
-console.log(result)
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+function hasCycle(head) {
+  let visited = new Set()
+  
+  while (head != null) {
+    if (visited.has(head.val)) 
+      return true
+    else
+      visited.add(head.val)
+
+      head = head.next
+  }
+
+  return false
+};
+
+function hasCycle_inPlace(head) {
+  if (head == null || head.next == null) return false
+  
+  let slow = head
+  let fast = head.next
+
+  while (slow != fast) {
+    if (fast == null || fast.next == null)
+      return false
+
+    slow = slow.next
+    fast = fast.next.next
+  }
+
+  return true
+}
+
+// 3 -> 2 -> 0 -> 4 
+
+let head = new ListNode(3)
+let one = new ListNode(2)
+let two = new ListNode(0)
+let three = new ListNode(4)
+head.next = one
+one.next = two
+console.log(hasCycle_inPlace(head))
