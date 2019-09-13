@@ -1,25 +1,29 @@
 
-class Queue {
+export class Queue {
     constructor() {
         this.q = new Array();
-        this.dequeue = function () {
-            return this.q.pop();
-        };
-        this.enqueue = function (item) {
-            this.q.unshift(item);
-        };
     }
+
+    dequeue() {
+        return q.pop()
+    }
+
+    enqueue(item) {
+        q.unshift(item);
+    };
 }
 
-class Stack {
+export class Stack {
     constructor() {
         this.q = new Array();
-        this.pop = function () {
-            return this.q.pop();
-        };
-        this.push = function (item) {
-            this.q.push(item);
-        };
+    }
+    
+    pop() {
+        return q.pop();
+    }
+
+    push(item) {
+        q.push(item);
     }
 }
 

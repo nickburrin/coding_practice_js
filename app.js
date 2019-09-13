@@ -376,12 +376,21 @@ function hasCycle_inPlace(head) {
   return true
 }
 
-// 3 -> 2 -> 0 -> 4 
+var isHappy = function(n) {
+  let set = new Set()
+  while (n != 1) {
+      if (set.has(n)) 
+          return false
+      set.add(n)
+      
+      n = n.toString().split("").reduce(sumofArray, 0)
+  }
+  
+  return true
+};
 
-let head = new ListNode(3)
-let one = new ListNode(2)
-let two = new ListNode(0)
-let three = new ListNode(4)
-head.next = one
-one.next = two
-console.log(hasCycle_inPlace(head))
+function sumofArray(sum, num) { 
+  return sum + Math.pow(Number(num), 2); 
+}
+
+console.log(isHappy(12))
